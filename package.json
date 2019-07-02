@@ -4,11 +4,13 @@
   "description": "test",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode='production'"
+    "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "webpack": "^4.35.0",
-    "webpack-cli": "^3.3.5"
+
   },
-  "devDependelncies": {}
+  "devDependelncies": {
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2"
+  }
 }
