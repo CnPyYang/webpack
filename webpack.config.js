@@ -1,9 +1,10 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: {
     app: './src/app.js',
     search: './src/search.js'
@@ -49,5 +50,12 @@ module.exports = {
         use: 'url-loader'
       }
     ]
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  devServer: {
+    contentBase: './dist',
+    hot: true
   }
 }
