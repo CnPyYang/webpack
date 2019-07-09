@@ -1,19 +1,39 @@
-'use strict';
-
+/* eslint-disable import/no-unresolved */
+/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import logo from '../../img/logo_pc.png'
-import './search.less'
+import './search.less';
 
-class Search extends React.Component{
+class Search extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      Text: null,
+    };
+  }
+
+  imortJs() {
+    import('./text.js').then((Text) => {
+      this.setState({
+        Text: Text.default,
+      });
+    });
+  }
+
   render() {
-    return <div>search text
-      <img src={logo} />
-    </div>;
+    const { Text } = this.state;
+    return (
+      <div>
+        search text
+        {
+        Text ? <Text /> : null
+      }
+      </div>
+    );
   }
 }
 
 ReactDOM.render(
   <Search />,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
