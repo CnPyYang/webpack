@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+// import React from 'react';
 import './search.less';
+const React = require('react')
 
 class Search extends React.Component {
   constructor() {
@@ -24,14 +24,11 @@ class Search extends React.Component {
       <div>
         search text
         {
-        Text ? <Text /> : null
-      }
+          Text ? <Text /> : null
+        }
       </div>
     );
   }
 }
 
-ReactDOM.render(
-  <Search />,
-  document.getElementById('root'),
-);
+module.exports = <Search />;

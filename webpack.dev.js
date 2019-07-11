@@ -1,10 +1,9 @@
-'use strict';
-
 const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
 const setMPA = () => {
   const entry = {};
@@ -15,8 +14,8 @@ const setMPA = () => {
     const entryfile = entryfiles[index];
     const match = entryfile.match(/src\/page\/(.*)\/index\.js/);
 
-    const pageName = match && match[1]
-    entry[pageName] = entryfile
+    const pageName = match && match[1];
+    entry[pageName] = entryfile;
     htmlwebpackplugin.push(
       new HtmlWebpackPlugin({
         template: path.join(__dirname, `src/page/${pageName}/index.html`),
@@ -29,45 +28,45 @@ const setMPA = () => {
           preserveLineBreaks: false,
           minifyCSS: true,
           minifyJS: true,
-          removeComments: false
-        }
-      })
-    )
-  })
+          removeComments: false,
+        },
+      }),
+    );
+  });
 
   return {
     entry,
-    htmlwebpackplugin
-  }
-}
+    htmlwebpackplugin,
+  };
+};
 const { entry, htmlwebpackplugin } = setMPA();
 module.exports = {
   mode: 'development',
   entry,
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: '[name].js',
   },
   module: {
     rules: [
       {
         test: /.js$/,
-        use: 'babel-loader'
+        use: 'babel-loader',
       },
       {
         test: /.css$/,
         use: [
           'style-loader',
-          'css-loader'
-        ]
+          'css-loader',
+        ],
       },
       {
         test: /.less$/,
         use: [
           'style-loader',
           'css-loader',
-          'less-loader'
-        ]
+          'less-loader',
+        ],
       },
       {
         test: /.(png|jpg|jpeg|gif|svg)$/,
@@ -75,24 +74,25 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 10240
-            }
-          }
-        ]
+              limit: 10240,
+            },
+          },
+        ],
       },
       {
         test: /.(woff|woff2|eot|ttf|otf)$/,
-        use: 'url-loader'
-      }
-    ]
+        use: 'url-loader',
+      },
+    ],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new FriendlyErrorsWebpackPlugin(),
   ].concat(htmlwebpackplugin),
   devServer: {
     contentBase: './dist',
-    hot: true
+    hot: true,
   },
-  devtool: 'source-map'
-}
+  devtool: 'source-map',
+};
